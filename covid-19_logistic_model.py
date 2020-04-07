@@ -79,7 +79,7 @@ print(n2(5), n2(30))
 # ----------------------------------------------------------
 
 #import case data (update with the local path of the csv file)
-sPath='total-cases-covid=19-04032020.csv'
+sPath='total-cases-covid=19-04052020.csv'
 alldata=pd.read_csv(
         sPath, 
         sep=',',
@@ -93,11 +93,11 @@ def r(t,a,b,c):
     return c/(1+a*np.exp(-b0*t))
 
 # initialize coefficients using known or random values
-#p0 = [1, 1.5, Nmax]   
-p0 = np.random.exponential(size=3)
+#init_guess = [1, 1.5, Nmax]   
+init_guess = np.random.exponential(size=3)
     
 # set array bounds (adjust according to region or target population)
-bounds = (0, [8000., 0.5, 100000.])
+bounds = (0, [1000., 0.5, 100000.])
 
 t = np.array(alldata['Days']) + 1
 y = np.array(alldata['California'])
@@ -112,7 +112,7 @@ t_max = t.size
 
 #non-linear optimization to estimate best fit model on case data
 #uncomment next line to find best fit with new regional data
-#(a,b,c),cov = opt.curve_fit(r, t, y, bounds=bounds, p0=p0)
+#(a,b,c),covar = opt.curve_fit(r, t, y, bounds=bounds, p0=init_guess)
 
 #BEST FIT FOR CALIFORNIA PREVALENCE (r^2=0.992): 
 (a,b,c)=(234.7722, 0.2414, 19362.9526)
@@ -143,7 +143,7 @@ y=rate
 
 #non-linear optimization to estimate best fit model on daily rate
 #uncomment next line to find best fit with new regional data
-#(a,b,c),cov = opt.curve_fit(r, tr, y, bounds=bounds, p0=p0)
+#(a,b,c),cov = opt.curve_fit(r, tr, y, bounds=bounds, p0=init_guess)
 
 #BEST FIT FOR CALIFORNIA INCIDENCE (r^2=0.812): 
 (a,b,c)=(204.7359, 0.2551, 3021.3831)
