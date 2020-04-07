@@ -143,7 +143,7 @@ y=rate
 
 #non-linear optimization to estimate best fit model on daily rate
 #uncomment next line to find best fit with new regional data
-#(a,b,c),cov = opt.curve_fit(r, tr, y, bounds=bounds, p0=init_guess)
+#(a,b,c),covar = opt.curve_fit(r, tr, y, bounds=bounds, p0=init_guess)
 
 #BEST FIT FOR CALIFORNIA INCIDENCE (r^2=0.812): 
 (a,b,c)=(204.7359, 0.2551, 3021.3831)
